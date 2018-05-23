@@ -1,0 +1,2 @@
+curl -X POST "https://api-cn.faceplusplus.com/facepp/v3/detect" -F "api_key=VLWlVgethHGjWAi9CkM4HLrX5AesoYoS" -F "api_secret=fmVpZe_0enXUWTjHv6paqtlzXWZgj2Gz" -F "image_file=@begin.bmp" -F "return_landmark=2" > begin.json
+curl -X POST "https://api-cn.faceplusplus.com/facepp/v3/detect" -F "api_key=VLWlVgethHGjWAi9CkM4HLrX5AesoYoS" -F "api_secret=fmVpZe_0enXUWTjHv6paqtlzXWZgj2Gz" -F "image_file=@end.bmp" -F "return_landmark=2" > end.json

@@ -1,0 +1,6 @@
+fname: XXX beg: (XX, XX) end: (XX，XX)
+fname: 左耳上侧 beg: (53, 178) end: (51，166)
+fname: 左耳上内侧 beg: (67, 196) end: (69，181)
+fname: 左耳内侧 beg: (70, 215) end: (73，200)
+fname: 左耳下内侧 beg: (70, 215) end: (73，200)
+

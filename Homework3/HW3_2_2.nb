@@ -1,0 +1,232 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      8178,        224]
+NotebookOptionsPosition[      7701,        203]
+NotebookOutlinePosition[      8058,        219]
+CellTagsIndexPosition[      8015,        216]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+  "SetDirectory", "[", 
+   "\"\<D:\\\\college\\\\Junior\\\\\:8ba1\:7b97\:673a\:89c6\:89c9\\\\Homework_\
+Mathematica\\\\Homework3\\\\Dataset2\\\\\>\"", "]"}], ";"}]], "Input",
+ CellChangeTimes->{{3.733401909503559*^9, 3.7334019374776525`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"A", "=", 
+  RowBox[{"Import", "[", "\"\<Dataset\\\\IMG_1.bmp\>\"", "]"}]}]], "Input",
+ CellChangeTimes->{{3.733563106884494*^9, 3.7335631236916738`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"edges", "=", 
+  RowBox[{"EdgeDetect", "[", "A", "]"}]}]], "Input",
+ CellChangeTimes->{{3.73356319775966*^9, 3.7335632113331394`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"HoughCircleDetection", "[", 
+    RowBox[{"image_Image", ",", 
+     RowBox[{"radiusmin_Integer:", " ", "1"}], ",", 
+     RowBox[{"radiusmax_Integer:", " ", "40"}], ",", 
+     RowBox[{"edgedetectradius_Integer:", " ", "10"}], ",", 
+     RowBox[{"minfitvalue_Real:", " ", ".25"}], ",", 
+     RowBox[{"radiusstep_Integer:", " ", "1"}], ",", 
+     RowBox[{"minhoughvoxels_Integer:", " ", "4"}]}], "]"}], ":=", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+      "edgeimage", ",", "hough3dbin", ",", "hough3dbinlabels", ",", "coords", 
+       ",", "arraydim"}], "}"}], ",", 
+     RowBox[{
+      RowBox[{"edgeimage", "=", 
+       RowBox[{"SelectComponents", "[", 
+        RowBox[{
+         RowBox[{"DeleteBorderComponents", "[", 
+          RowBox[{"EdgeDetect", "[", 
+           RowBox[{"image", ",", "edgedetectradius", ",", 
+            RowBox[{"Method", "\[Rule]", "\"\<Sobel\>\""}]}], "]"}], "]"}], 
+         ",", "\"\<EnclosingComponentCount\>\"", ",", 
+         RowBox[{
+          RowBox[{"#", "\[Equal]", "0"}], "&"}]}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"hough3dbin", "=", 
+       RowBox[{"DeleteSmallComponents", "[", 
+        RowBox[{
+         RowBox[{"Image3D", "[", 
+          RowBox[{"ParallelMap", "[", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"Binarize", "[", 
+              RowBox[{
+               RowBox[{"Image", "@", 
+                RowBox[{"Divide", "[", 
+                 RowBox[{
+                  RowBox[{"ListConvolve", "[", 
+                   RowBox[{"#", ",", 
+                    RowBox[{"ImageData", "@", "edgeimage"}], ",", 
+                    RowBox[{"Ceiling", "[", 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"Length", "@", "#"}], ")"}], "/", "2"}], "]"}]}], 
+                   "]"}], ",", 
+                  RowBox[{"Total", "[", 
+                   RowBox[{"#", ",", "2"}], "]"}]}], "]"}]}], ",", 
+               "minfitvalue"}], "]"}], "&"}], ",", 
+            RowBox[{"Map", "[", 
+             RowBox[{
+              RowBox[{
+               RowBox[{
+                RowBox[{"Function", "[", 
+                 RowBox[{
+                  RowBox[{"{", "r", "}"}], ",", 
+                  RowBox[{
+                   RowBox[{"DiskMatrix", "[", "r", "]"}], "-", 
+                   RowBox[{"ArrayPad", "[", 
+                    RowBox[{
+                    RowBox[{"DiskMatrix", "[", 
+                    RowBox[{"r", "-", "1"}], "]"}], ",", "1"}], "]"}]}]}], 
+                 "]"}], "[", "#", "]"}], "&"}], ",", 
+              RowBox[{"Range", "[", 
+               RowBox[{"radiusmin", ",", "radiusmax", ",", "radiusstep"}], 
+               "]"}]}], "]"}]}], "]"}], "]"}], ",", "minhoughvoxels"}], 
+        "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"hough3dbinlabels", "=", 
+       RowBox[{"MorphologicalComponents", "[", "hough3dbin", "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"coords", "=", 
+       RowBox[{"ParallelMap", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"Round", "[", 
+           RowBox[{"Mean", "[", 
+            RowBox[{"Position", "[", 
+             RowBox[{"hough3dbinlabels", ",", "#"}], "]"}], "]"}], "]"}], 
+          "&"}], ",", 
+         RowBox[{
+          RowBox[{"Sort", "[", 
+           RowBox[{
+            RowBox[{"Rest", "@", 
+             RowBox[{"Tally", "@", 
+              RowBox[{"Flatten", "@", "hough3dbinlabels"}]}]}], ",", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"#1", "[", 
+               RowBox[{"[", "2", "]"}], "]"}], ">", 
+              RowBox[{"#2", "[", 
+               RowBox[{"[", "2", "]"}], "]"}]}], "&"}]}], "]"}], "[", 
+          RowBox[{"[", 
+           RowBox[{"All", ",", "1"}], "]"}], "]"}]}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"arraydim", "=", 
+       RowBox[{"Rest", "@", 
+        RowBox[{"Dimensions", "[", "hough3dbinlabels", "]"}]}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"Print", "[", 
+       RowBox[{"\"\<Radii: \>\"", ",", 
+        RowBox[{"radiusmin", "+", 
+         RowBox[{"coords", "[", 
+          RowBox[{"[", 
+           RowBox[{"All", ",", "1"}], "]"}], "]"}], "-", "1"}]}], "]"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"ParallelMap", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{
+          RowBox[{"Function", "[", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{"level", ",", "offx", ",", "offy"}], "}"}], ",", 
+            RowBox[{"ImageMultiply", "[", 
+             RowBox[{"image", ",", 
+              RowBox[{"Image", "@", 
+               RowBox[{"ArrayPad", "[", 
+                RowBox[{
+                 RowBox[{"DiskMatrix", "[", 
+                  RowBox[{"radiusmin", "+", "level", "-", "1"}], "]"}], ",", 
+                 RowBox[{"{", 
+                  RowBox[{
+                   RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"offx", "-", "radiusmin", "-", "level"}], ",", 
+                    RowBox[{
+                    RowBox[{"First", "@", "arraydim"}], "-", "offx", "-", 
+                    "radiusmin", "-", "level", "+", "1"}]}], "}"}], ",", 
+                   RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"offy", "-", "radiusmin", "-", "level"}], ",", 
+                    RowBox[{
+                    RowBox[{"Last", "@", "arraydim"}], "-", "offy", "-", 
+                    "radiusmin", "-", "level", "+", "1"}]}], "}"}]}], "}"}]}],
+                 "]"}]}]}], "]"}]}], "]"}], "[", 
+          RowBox[{"Sequence", "@@", "#"}], "]"}], "&"}], ",", "coords"}], 
+       "]"}]}]}], "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.7335632286548386`*^9, 3.733563231722711*^9}, {
+  3.733563285253112*^9, 3.733563287958355*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"Show", "[", 
+    RowBox[{
+     RowBox[{"ImageApply", "[", 
+      RowBox[{"Plus", ",", 
+       RowBox[{"HoughCircleDetection", "[", 
+        RowBox[{"#", ",", "20", ",", "100"}], "]"}]}], "]"}], ",", 
+     RowBox[{"ImageSize", "\[Rule]", "200"}]}], "]"}], "&"}], "[", "A", 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.7335632983281145`*^9, 3.7335633140425644`*^9}, {
+  3.733563373267408*^9, 3.733563379752405*^9}, {3.7335634170573072`*^9, 
+  3.733563422031826*^9}}],
+
+Cell[BoxData["$Aborted"], "Output",
+ CellChangeTimes->{3.733563343712759*^9, 3.7335633898016787`*^9, 
+  3.7335634393233433`*^9, 3.7335675777079153`*^9}]
+}, Open  ]]
+},
+WindowSize->{775, 872},
+WindowMargins->{{564, Automatic}, {Automatic, 54}},
+FrontEndVersion->"11.0 for Microsoft Windows (64-bit) (2016\:5e7410\:67088\
+\:65e5)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 277, 6, 50, "Input"],
+Cell[838, 28, 177, 3, 47, "Input"],
+Cell[1018, 33, 157, 3, 47, "Input"],
+Cell[1178, 38, 5819, 141, 863, "Input"],
+Cell[CellGroupData[{
+Cell[7022, 183, 508, 13, 47, "Input"],
+Cell[7533, 198, 152, 2, 30, "Output"]
+}, Open  ]]
+}
+]
+*)
+

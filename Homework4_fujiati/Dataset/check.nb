@@ -1,0 +1,195 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      7036,        187]
+NotebookOptionsPosition[      6436,        163]
+NotebookOutlinePosition[      6794,        179]
+CellTagsIndexPosition[      6751,        176]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{
+    "smfstr", "=", 
+     "\"\<D:\\\\college\\\\Junior\\\\\:8ba1\:7b97\:673a\:89c6\:89c9\\\\\
+Homework_Mathematica\\\\Homework4_fujiati\\\\Dataset\\\\smface.jpg\>\""}], 
+    ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"img", "=", 
+     RowBox[{"Import", "[", "smfstr", "]"}]}], ";"}]}]}]], "Input",
+ CellChangeTimes->{{3.7349410939953423`*^9, 3.734941116951564*^9}, {
+  3.734943712293908*^9, 3.7349437347870693`*^9}, {3.7349466594694176`*^9, 
+  3.7349466910770617`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"js", "=", 
+   RowBox[{"Import", "[", 
+    RowBox[{
+    "\"\<D:\\\\college\\\\Junior\\\\\:8ba1\:7b97\:673a\:89c6\:89c9\\\\\
+Homework_Mathematica\\\\Homework4_fujiati\\\\Dataset\\\\result.json\>\"", 
+     ",", "\"\<RawJSON\>\""}], "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.7349451415912385`*^9, 3.734945148632958*^9}, {
+   3.7349452318043227`*^9, 3.7349452397444496`*^9}, 3.734946668959757*^9, 
+   3.7349487534789295`*^9}],
+
+Cell[BoxData[
+ RowBox[{"(*", 
+  RowBox[{
+   RowBox[{"req", " ", "=", " ", 
+    RowBox[{"HTTPRequest", "[", 
+     RowBox[{
+     "\"\<https://api-cn.faceplusplus.com/facepp/v3/detect\>\"", ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"<|", 
+       RowBox[{
+        RowBox[{"Method", " ", "\[Rule]", " ", "\"\<POST\>\""}], ",", " ", 
+        "\[IndentingNewLine]", 
+        RowBox[{"\"\<Body\>\"", "\[Rule]", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{
+           "\"\<api_key\>\"", "->", 
+            "\"\<VLWlVgethHGjWAi9CkM4HLrX5AesoYoS\>\""}], ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{
+           "\"\<api_secret\>\"", "->", 
+            "\"\<fmVpZe_0enXUWTjHv6paqtlzXWZgj2Gz\>\""}], ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{"\"\<image_file\>\"", "\[Rule]", "img"}], ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{"\"\<return_landmark\>\"", "\[Rule]", "\"\<1\>\""}], ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{
+           "\"\<return_attributes\>\"", "\[Rule]", "\"\<smiling,age\>\""}]}], 
+          "}"}]}]}], "|>"}]}], "]"}]}], ";", "\[IndentingNewLine]", 
+   RowBox[{"res", "=", 
+    RowBox[{"URLRead", "[", 
+     RowBox[{"req", ",", "\"\<Body\>\""}], "]"}]}]}], "*)"}]], "Input",
+ CellChangeTimes->{{3.7349411995174*^9, 3.734941201859462*^9}, {
+   3.7349412425282593`*^9, 3.7349412438306274`*^9}, {3.7349413722456264`*^9, 
+   3.734941372430751*^9}, {3.7349422488341165`*^9, 3.734942276245802*^9}, {
+   3.7349423532696805`*^9, 3.734942374269349*^9}, {3.734942450949859*^9, 
+   3.7349424942460537`*^9}, {3.734942524869997*^9, 3.73494252659715*^9}, {
+   3.7349425828073573`*^9, 3.73494259177993*^9}, {3.734942624388793*^9, 
+   3.7349426797234974`*^9}, {3.7349427154833817`*^9, 
+   3.7349427433646336`*^9}, {3.7349427765069857`*^9, 
+   3.7349427776592555`*^9}, {3.734942841766711*^9, 3.734942879170535*^9}, {
+   3.734942981241943*^9, 3.7349429817848053`*^9}, {3.734943153824397*^9, 
+   3.734943181311835*^9}, {3.734943283815407*^9, 3.734943285038723*^9}, {
+   3.734943326639594*^9, 3.734943333886876*^9}, {3.734943737828598*^9, 
+   3.7349437801246443`*^9}, 3.7349450883213015`*^9, {3.734945126795761*^9, 
+   3.7349451308960447`*^9}, {3.734946670551332*^9, 3.7349466759194126`*^9}, {
+   3.7349487405091605`*^9, 3.734948750472909*^9}}],
+
+Cell[BoxData[
+ RowBox[{"HighlightImage", "[", 
+  RowBox[{"img", ",", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"#", "[", "\"\<x\>\"", "]"}], ",", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"ImageDimensions", "[", "img", "]"}], "[", 
+         RowBox[{"[", "2", "]"}], "]"}], "-", 
+        RowBox[{"#", "[", "\"\<y\>\"", "]"}]}]}], "}"}], "&"}], "/@", 
+    RowBox[{"Values", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"js", "[", "\"\<faces\>\"", "]"}], "[", 
+       RowBox[{"[", "1", "]"}], "]"}], "[", "\"\<landmark\>\"", "]"}], 
+     "]"}]}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.734941247406536*^9, 3.734941256878541*^9}, {
+   3.7349413219590054`*^9, 3.7349413282452655`*^9}, {3.734941374917409*^9, 
+   3.734941388036682*^9}, {3.734941476275518*^9, 3.7349415018598213`*^9}, {
+   3.7349416142516804`*^9, 3.734941622683576*^9}, {3.7349418094345803`*^9, 
+   3.734941809561165*^9}, 3.7349418523776817`*^9, {3.7349419218322496`*^9, 
+   3.734941978976656*^9}, {3.7349420101208787`*^9, 3.734942092919486*^9}, {
+   3.734942136176243*^9, 3.7349421843447247`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"StringTake", "[", 
+  RowBox[{
+   RowBox[{"ExportString", "[", 
+    RowBox[{"img", ",", "\"\<Base64\>\""}], "]"}], ",", "100"}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.7349448578419538`*^9, 3.7349449058542943`*^9}, {
+  3.7349449484575043`*^9, 3.734944998981099*^9}}],
+
+Cell[BoxData[
+ TemplateBox[{
+  "StringTake","take",
+   "\"\:65e0\:6cd5\:5728 \\\" \\!\\(\\*RowBox[{\\\"\\\\\\\"LUltYWdlLQ==\\\\\\\
+\\n\\\\\\\"\\\"}]\\) \\\" \:4e2d\:4f7f\:7528\:4ece\:4f4d\:7f6e \
+\\!\\(\\*RowBox[{\\\"1\\\"}]\\) \:5230 \\!\\(\\*RowBox[{\\\"100\\\"}]\\).\"",
+   2,150,36,32490472504279474348,"Local"},
+  "MessageTemplate"]], "Message", "MSG",
+ CellChangeTimes->{
+  3.7349449866683064`*^9, 3.7349452221667314`*^9, {3.7349452729563804`*^9, 
+   3.7349452977632127`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"StringTake", "[", 
+  RowBox[{"\<\"LUltYWdlLQ==\\n\"\>", ",", "100"}], "]"}]], "Output",
+ CellChangeTimes->{{3.734944954350608*^9, 3.7349449867318497`*^9}, 
+   3.7349452221972513`*^9, {3.734945272980396*^9, 3.734945297793233*^9}}]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"ByteArray", "[", "img", "]"}]], "Input",
+ CellChangeTimes->{{3.734946815979317*^9, 3.7349468196517663`*^9}}],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.7349467519964795`*^9, 3.7349467570528545`*^9}, {
+  3.7349468129818172`*^9, 3.7349468134291153`*^9}, {3.7349469376459208`*^9, 
+  3.734946955701125*^9}}]
+},
+WindowSize->{775, 872},
+WindowMargins->{{513, Automatic}, {-13, Automatic}},
+FrontEndVersion->"11.0 for Microsoft Windows (64-bit) (2016\:5e7410\:67088\
+\:65e5)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 563, 14, 123, "Input"],
+Cell[1124, 36, 461, 10, 115, "Input"],
+Cell[1588, 48, 2326, 47, 164, "Input"],
+Cell[3917, 97, 1107, 25, 84, "Input"],
+Cell[CellGroupData[{
+Cell[5049, 126, 292, 7, 47, "Input"],
+Cell[5344, 135, 482, 10, 45, "Message"],
+Cell[5829, 147, 253, 4, 50, "Output"]
+}, Open  ]],
+Cell[6097, 154, 132, 2, 47, "Input"],
+Cell[6232, 158, 200, 3, 30, "Input"]
+}
+]
+*)
+
